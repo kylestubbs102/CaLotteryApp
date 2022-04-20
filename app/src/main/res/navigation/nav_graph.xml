@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/lotteryDrawsFragment">
+
+    <fragment
+        android:id="@+id/lotteryDrawsFragment"
+        android:name="com.example.calotteryapp.presentation.lotterydraws.LotteryDrawsFragment"
+        tools:layout="@layout/fragment_lottery_draws" />
+
+    <fragment
+        android:id="@+id/lotteryGraphFragment"
+        android:name="com.example.calotteryapp.presentation.lotterygraph.LotteryGraphFragment"
+        tools:layout="@layout/fragment_lottery_graph" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.calotteryapp.presentation.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>
