@@ -139,7 +139,11 @@ class LotteryDrawsFragment : Fragment() {
 
         viewModel.lotteryDraws.observe(viewLifecycleOwner, Observer {
             lotteryDrawList.clear()
-            lotteryDrawList.add("Most recent lottery draw")     // Want this to show up even if list is empty
+            lotteryDrawList.add(
+                resources.getString(
+                    R.string.most_recent_lottery_draw
+                )
+            )     // Want this to show up even if list is empty
 
             if (!isNetworkConnected()) {
                 createNoConnectionAlertDialog()
@@ -152,7 +156,13 @@ class LotteryDrawsFragment : Fragment() {
 
             if (it.size > 1) {
                 val amountOfPrevDraws = it.size - 1
-                lotteryDrawList.add("$amountOfPrevDraws previous lottery draws")
+                lotteryDrawList.add(
+                    resources.getQuantityString(
+                        R.plurals.amount_of_prev_lottery_draws,
+                        amountOfPrevDraws,
+                        amountOfPrevDraws
+                    )
+                )
                 lotteryDrawList.addAll(it.drop(1))
             }
             adapter?.notifyDataSetChanged()
