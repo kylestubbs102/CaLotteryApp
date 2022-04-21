@@ -218,9 +218,9 @@ class LotteryDrawsFragment : Fragment() {
     private fun getCurrTime(dayOfWeek: Int): Calendar {
         val currTime = Calendar.getInstance(Locale.getDefault())
         currTime.set(Calendar.DAY_OF_WEEK, dayOfWeek)
-        currTime.set(Calendar.HOUR, 7)
+        currTime.set(Calendar.HOUR, 8)
         currTime.set(Calendar.AM_PM, Calendar.PM)
-        currTime.set(Calendar.MINUTE, 45)
+        currTime.set(Calendar.MINUTE, 30)
         currTime.set(Calendar.SECOND, 10)
 
         // adds time until it is past the current time, ex: alarm is set for yesterday
