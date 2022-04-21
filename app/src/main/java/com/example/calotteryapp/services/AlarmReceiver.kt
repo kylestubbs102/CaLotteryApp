@@ -14,10 +14,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.calotteryapp.R
 import com.example.calotteryapp.di.IoDispatcher
-import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.domain.repository.LotteryRepository
 import com.example.calotteryapp.presentation.MainActivity
-import com.example.calotteryapp.util.DATA_ALREADY_FETCHED
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
@@ -39,13 +37,9 @@ class AlarmReceiver : BroadcastReceiver() {
     @ApplicationContext
     lateinit var context: Context
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
-
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(TAG, "Broadcast received")
         CoroutineScope(ioDispatcher).launch {
-            appPreferences.insertBoolean(DATA_ALREADY_FETCHED, false)
             lotteryRepository.updateLotteryResults()
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
