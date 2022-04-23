@@ -1,4 +1,4 @@
-package com.example.calotteryapp.presentation.lotterydraws.viewholders
+package com.example.calotteryapp.presentation.viewholders
 
 import android.view.View
 import android.widget.TextView

@@ -1,12 +1,13 @@
-package com.example.calotteryapp.presentation.settings
+package com.example.calotteryapp.presentation.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.calotteryapp.R
+import com.example.calotteryapp.presentation.viewmodels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

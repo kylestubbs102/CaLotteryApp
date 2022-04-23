@@ -1,4 +1,4 @@
-package com.example.calotteryapp.presentation.lotterydraws
+package com.example.calotteryapp.presentation.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LotteryDrawsViewModel @Inject constructor(
+class LotteryViewModel @Inject constructor(
     private val lotteryRepository: LotteryRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {

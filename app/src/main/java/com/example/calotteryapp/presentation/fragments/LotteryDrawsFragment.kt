@@ -1,4 +1,4 @@
-package com.example.calotteryapp.presentation.lotterydraws
+package com.example.calotteryapp.presentation.fragments
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.calotteryapp.R
 import com.example.calotteryapp.domain.model.LotteryDraw
+import com.example.calotteryapp.presentation.viewmodels.LotteryViewModel
+import com.example.calotteryapp.presentation.adapters.LotteryDrawAdapter
 import com.example.calotteryapp.services.AlarmReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -54,7 +56,7 @@ class LotteryDrawsFragment : Fragment() {
 
     private var lotteryDrawList = mutableListOf<Any>()
 
-    private val viewModel: LotteryDrawsViewModel by activityViewModels()
+    private val viewModel: LotteryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

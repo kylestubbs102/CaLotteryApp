@@ -1,12 +1,12 @@
-package com.example.calotteryapp.presentation.lotterydraws
+package com.example.calotteryapp.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calotteryapp.R
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.presentation.lotterydraws.viewholders.LotteryDrawViewHolder
-import com.example.calotteryapp.presentation.lotterydraws.viewholders.SeparatorViewHolder
+import com.example.calotteryapp.presentation.viewholders.LotteryDrawViewHolder
+import com.example.calotteryapp.presentation.viewholders.SeparatorViewHolder
 import java.text.SimpleDateFormat
 
 class LotteryDrawAdapter(

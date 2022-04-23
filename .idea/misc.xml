@@ -12,8 +12,11 @@
         <entry key="app/src/main/res/drawable/ic_wheel.xml" value="0.243" />
         <entry key="app/src/main/res/drawable/navigation_state.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_lottery_chart.xml" value="0.264945652173913" />
         <entry key="app/src/main/res/layout/fragment_lottery_draws.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_lottery_graph.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/layout/fragment_lottery_graph.xml" value="0.20018115942028986" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/layout/labeled_bar_chart.xml" value="0.264945652173913" />
         <entry key="app/src/main/res/layout/most_recent_lottery_draw.xml" value="0.1" />
         <entry key="app/src/main/res/layout/normal_lottery_draw.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recent_lottery_draw.xml" value="0.15501519756838905" />

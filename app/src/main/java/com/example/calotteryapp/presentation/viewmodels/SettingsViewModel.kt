@@ -1,4 +1,4 @@
-package com.example.calotteryapp.presentation.settings
+package com.example.calotteryapp.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

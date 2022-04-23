@@ -6,6 +6,10 @@
     <string name="no_connection_alert_dialog_title">Unable to fetch results.</string>
     <string name="no_connection_alert_dialog_message">Please connect to the internet to get the most recent lottery results.</string>
     <string name="most_recent_lottery_draw">Most recent lottery draw</string>
+    <string name="regular_lottery_numbers">Regular Lottery Numbers</string>
+    <string name="times_drawn">Times drawn</string>
+    <string name="numbers">Numbers</string>
+    <string name="mega_lottery_numbers">Mega Lottery Numbers</string>
     <plurals name="amount_of_prev_lottery_draws">
         <item quantity="one">%d previous lottery draw</item>
         <item quantity="other">%d previous lottery draws</item>

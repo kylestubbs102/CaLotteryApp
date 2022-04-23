@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/lotteryDrawsFragment"
-        android:name="com.example.calotteryapp.presentation.lotterydraws.LotteryDrawsFragment"
+        android:name="com.example.calotteryapp.presentation.fragments.LotteryDrawsFragment"
         tools:layout="@layout/fragment_lottery_draws" />
 
     <fragment
         android:id="@+id/lotteryGraphFragment"
-        android:name="com.example.calotteryapp.presentation.lotterygraph.LotteryGraphFragment"
-        tools:layout="@layout/fragment_lottery_graph" />
+        android:name="com.example.calotteryapp.presentation.fragments.LotteryChartFragment"
+        tools:layout="@layout/fragment_lottery_chart" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.calotteryapp.presentation.settings.SettingsFragment"
+        android:name="com.example.calotteryapp.presentation.fragments.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 
 </navigation>
