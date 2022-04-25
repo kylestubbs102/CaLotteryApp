@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calotteryapp.R
 import com.example.calotteryapp.domain.model.LotteryDraw
+import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.presentation.viewholders.LotteryDrawViewHolder
 import com.example.calotteryapp.presentation.viewholders.SeparatorViewHolder
 import java.text.SimpleDateFormat
 
 class LotteryDrawAdapter(
     private val lotteryDraws: List<Any>,         // list type is any because of separators
-    private val simpleDateFormat: SimpleDateFormat
+    private val simpleDateFormat: SimpleDateFormat,
+    private val appPreferences: AppPreferences
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
@@ -49,7 +51,8 @@ class LotteryDrawAdapter(
             is LotteryDrawViewHolder -> {
                 holder.bind(
                     data as LotteryDraw,
-                    simpleDateFormat
+                    simpleDateFormat,
+                    appPreferences
                 )
             }
             is SeparatorViewHolder -> {

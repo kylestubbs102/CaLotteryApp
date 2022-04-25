@@ -1,16 +1,21 @@
 package com.example.calotteryapp.presentation.viewholders
 
+import android.graphics.Color
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
+import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.example.calotteryapp.R
 import com.example.calotteryapp.domain.model.LotteryDraw
+import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.util.CURRENCY_FORMAT
+import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY
+import com.example.calotteryapp.util.REGULAR_USER_NUMBERS_PREF_KEY
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
-class LotteryDrawViewHolder @Inject constructor(
+class LotteryDrawViewHolder(
     view: View
 ) : RecyclerView.ViewHolder(view) {
     private var dateTextView: TextView = view.findViewById(R.id.dateTextView)
@@ -19,13 +24,17 @@ class LotteryDrawViewHolder @Inject constructor(
 
     fun bind(
         lotteryDraw: LotteryDraw,
-        simpleDateFormat: SimpleDateFormat
+        simpleDateFormat: SimpleDateFormat,
+        appPreferences: AppPreferences
     ) {
         dateTextView.text = bindDate(
             lotteryDraw.date,
             simpleDateFormat
         )
-        numbersTextView.text = bindNumbers(lotteryDraw.winningNumbers)
+        numbersTextView.text = bindNumbers(
+            lotteryDraw.winningNumbers,
+            appPreferences
+        )
         prizeTextView.text = bindPrize(lotteryDraw.prizeAmount)
     }
 
@@ -37,9 +46,45 @@ class LotteryDrawViewHolder @Inject constructor(
         return simpleDateFormat.format(date)
     }
 
-    private fun bindNumbers(winningNumbers: List<Int>): String {
-        return winningNumbers.joinToString(", ").removeSuffix(",")
+    private fun bindNumbers(
+        winningNumbers: List<Int>,
+        appPreferences: AppPreferences
+    ): CharSequence {
+        val regularUserNumbers = appPreferences.getList(REGULAR_USER_NUMBERS_PREF_KEY)
+        val megaUserNumber = appPreferences.getInt(MEGA_USER_NUMBER_PREF_KEY)
+
+        val regularWinningsNumbers = winningNumbers.dropLast(1)
+        val megaWinningNumber = winningNumbers.last()
+
+        val originalColor = numbersTextView.currentTextColor
+
+        val getTextColor =
+            { num: Int, winNums: List<Int> -> if (num in winNums) Color.RED else originalColor }
+
+        var spanBuilder = SpannableStringBuilder()
+
+        for (i in 0..4) {
+            spanBuilder = spanBuilder
+                .color(getTextColor(regularWinningsNumbers[i], regularUserNumbers)) {
+                    append(regularWinningsNumbers[i].toString())
+                }
+                .append(", ")
+        }       // regular numbers
+
+        spanBuilder = spanBuilder
+            .color(getTextColor(megaWinningNumber, listOf(megaUserNumber))) {
+                append(megaWinningNumber.toString())
+            }   // mega number
+
+        return spanBuilder
     }
+
+//    private fun getColorString(num: Int): String {
+//        val x = SpannableStringBuilder()
+//            .color(Color.RED) { append(num.toString()) }
+//            .bold { append("asdf") }
+//        return x
+//    }
 
     private fun bindPrize(prizeAmount: Int): String {
         val prizeAmountString = String.format(CURRENCY_FORMAT, prizeAmount)

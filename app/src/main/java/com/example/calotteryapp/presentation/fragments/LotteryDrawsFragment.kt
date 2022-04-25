@@ -23,8 +23,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.calotteryapp.R
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.presentation.viewmodels.LotteryViewModel
+import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.presentation.adapters.LotteryDrawAdapter
+import com.example.calotteryapp.presentation.viewmodels.LotteryViewModel
 import com.example.calotteryapp.services.AlarmReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -43,6 +44,9 @@ class LotteryDrawsFragment : Fragment() {
 
     @Inject
     lateinit var simpleDateFormat: SimpleDateFormat
+
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     @Inject
     lateinit var alarmManager: AlarmManager
@@ -65,8 +69,9 @@ class LotteryDrawsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_lottery_draws, container, false)
 
         adapter = LotteryDrawAdapter(
-            lotteryDrawList,
-            simpleDateFormat
+            lotteryDraws = lotteryDrawList,
+            simpleDateFormat = simpleDateFormat,
+            appPreferences = appPreferences
         )
 
         setupAlarmManager()
@@ -99,6 +104,59 @@ class LotteryDrawsFragment : Fragment() {
         viewModel.loadLotteryDraws()
     }
 
+    private fun setupObservers() {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                true -> {
+                    swipeRefreshLayout?.isRefreshing = true
+                    recyclerView?.visibility = INVISIBLE
+                }
+                false -> {
+                    swipeRefreshLayout?.isRefreshing = false
+                    recyclerView?.visibility = VISIBLE
+                }
+            }
+        })
+
+        viewModel.lotteryDraws.observe(viewLifecycleOwner, Observer {
+            setupViewHolders(it)
+        })
+    }
+
+    private fun setupViewHolders(observedLotteryDraws: List<LotteryDraw>) {
+        lotteryDrawList.clear()
+        lotteryDrawList.add(
+            resources.getString(
+                R.string.most_recent_lottery_draw
+            )
+        )     // Want this to show up even if list is empty
+
+        if (!isNetworkConnected()) {
+            createNoConnectionAlertDialog()
+            return
+        }
+
+        val firstElementToInsert = if (observedLotteryDraws.isNotEmpty()) {
+            observedLotteryDraws.first()
+        } else {
+            LotteryDraw()
+        }
+        lotteryDrawList.add(firstElementToInsert)
+
+        if (observedLotteryDraws.size > 1) {
+            val amountOfPrevDraws = observedLotteryDraws.size - 1
+            lotteryDrawList.add(
+                resources.getQuantityString(
+                    R.plurals.amount_of_prev_lottery_draws,
+                    amountOfPrevDraws,
+                    amountOfPrevDraws
+                )
+            )
+            lotteryDrawList.addAll(observedLotteryDraws.drop(1))
+        }
+        adapter?.notifyDataSetChanged()
+    }
+
     private fun isNetworkConnected(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val activeNetwork = connectivityManager.activeNetwork ?: return false
@@ -123,52 +181,6 @@ class LotteryDrawsFragment : Fragment() {
             }
         }
         return false
-    }
-
-    private fun setupObservers() {
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                true -> {
-                    swipeRefreshLayout?.isRefreshing = true
-                    recyclerView?.visibility = INVISIBLE
-                }
-                false -> {
-                    swipeRefreshLayout?.isRefreshing = false
-                    recyclerView?.visibility = VISIBLE
-                }
-            }
-        })
-
-        viewModel.lotteryDraws.observe(viewLifecycleOwner, Observer {
-            lotteryDrawList.clear()
-            lotteryDrawList.add(
-                resources.getString(
-                    R.string.most_recent_lottery_draw
-                )
-            )     // Want this to show up even if list is empty
-
-            if (!isNetworkConnected()) {
-                createNoConnectionAlertDialog()
-                return@Observer
-            }
-
-            val firstElementToInsert =
-                if (it.isNotEmpty()) it.first() else LotteryDraw()
-            lotteryDrawList.add(firstElementToInsert)
-
-            if (it.size > 1) {
-                val amountOfPrevDraws = it.size - 1
-                lotteryDrawList.add(
-                    resources.getQuantityString(
-                        R.plurals.amount_of_prev_lottery_draws,
-                        amountOfPrevDraws,
-                        amountOfPrevDraws
-                    )
-                )
-                lotteryDrawList.addAll(it.drop(1))
-            }
-            adapter?.notifyDataSetChanged()
-        })
     }
 
     private fun createNoConnectionAlertDialog() {

@@ -64,10 +64,7 @@ class SettingsFragment : Fragment() {
                 if (s?.length != 2) return
 
                 if (view?.findFocus()?.id == R.id.edittext6) {
-                    val imm =
-                        context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                    imm?.hideSoftInputFromWindow(view?.windowToken, 0)
-
+                    hideKeyboard()
                     view?.findFocus()?.focusSearch(View.FOCUS_DOWN)
                 } else {
                     view?.findFocus()?.focusSearch(View.FOCUS_RIGHT)?.requestFocus()
@@ -103,7 +100,14 @@ class SettingsFragment : Fragment() {
                 text,
                 Toast.LENGTH_LONG
             ).show()
+            hideKeyboard()
         })
+    }
+
+    private fun hideKeyboard() {
+        val imm =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     override fun onDestroyView() {
