@@ -1,13 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.fragments.SettingsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.calotteryapp.presentation.viewmodels.SettingsViewModel" />
+
+        <import type="android.text.TextUtils" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:context=".presentation.fragments.SettingsFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".05" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/edittext_instructions"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/edittext1"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/left_guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext1"
+            style="@style/EditTextTheme"
+            android:layout_width="@dimen/edittext_side"
+            android:layout_height="@dimen/edittext_side"
+            android:background="@drawable/regular_edit_text_rounded"
+            android:imeOptions="actionNext"
+            android:text="@={viewModel.userNumbers[0]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edittext2"
+            app:layout_constraintStart_toEndOf="@id/left_guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext2"
+            style="@style/EditTextTheme"
+            android:layout_width="@dimen/edittext_side"
+            android:layout_height="@dimen/edittext_side"
+            android:background="@drawable/regular_edit_text_rounded"
+            android:imeOptions="actionNext"
+            android:text="@={viewModel.userNumbers[1]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edittext3"
+            app:layout_constraintStart_toEndOf="@id/edittext1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext3"
+            style="@style/EditTextTheme"
+            android:layout_width="@dimen/edittext_side"
+            android:layout_height="@dimen/edittext_side"
+            android:background="@drawable/regular_edit_text_rounded"
+            android:imeOptions="actionNext"
+            android:text="@={viewModel.userNumbers[2]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edittext4"
+            app:layout_constraintStart_toEndOf="@id/edittext2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext4"
+            style="@style/EditTextTheme"
+            android:layout_width="@dimen/edittext_side"
+            android:layout_height="@dimen/edittext_side"
+            android:background="@drawable/regular_edit_text_rounded"
+            android:imeOptions="actionNext"
+            android:text="@={viewModel.userNumbers[3]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edittext5"
+            app:layout_constraintStart_toEndOf="@id/edittext3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext5"
+            style="@style/EditTextTheme"
+            android:layout_width="@dimen/edittext_side"
+            android:layout_height="@dimen/edittext_side"
+            android:background="@drawable/regular_edit_text_rounded"
+            android:imeOptions="actionNext"
+            android:text="@={viewModel.userNumbers[4]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edittext6"
+            app:layout_constraintStart_toEndOf="@id/edittext4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext6"
+            style="@style/EditTextTheme"
+            android:layout_width="@dimen/edittext_side"
+            android:layout_height="@dimen/edittext_side"
+            android:background="@drawable/mega_edit_text_rounded"
+            android:imeOptions="actionDone"
+            android:text="@={viewModel.userNumbers[5]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/edittext5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled='false'
+            android:focusable="true"
+            android:onClick="@{() -> viewModel.verifyUserNumbers()}"
+            android:text="Submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/right_guideline"
+            app:layout_constraintStart_toEndOf="@id/button_clear"
+            app:layout_constraintTop_toBottomOf="@id/edittext1" />
+
+        <Button
+            android:id="@+id/button_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.clearUserNumbers()}"
+            android:text="Clear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_submit"
+            app:layout_constraintStart_toEndOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/edittext1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

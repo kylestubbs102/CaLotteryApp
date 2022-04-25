@@ -10,6 +10,9 @@
     <string name="times_drawn">Times drawn</string>
     <string name="numbers">Numbers</string>
     <string name="mega_lottery_numbers">Mega Lottery Numbers</string>
+    <string name="edittext_instructions">Enter a number 1–47 for the first 5 numbers and a number 1–27 for the last number.</string>
+    <string name="toast_save_success">Numbers saved successfully</string>
+    <string name="toast_save_failure">Unable to save numbers, please enter numbers within the given range</string>
     <plurals name="amount_of_prev_lottery_draws">
         <item quantity="one">%d previous lottery draw</item>
         <item quantity="other">%d previous lottery draws</item>

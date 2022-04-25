@@ -7,15 +7,17 @@
         <entry key="app/src/main/res/drawable-v24/outline_bar_chart_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/outline_list_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/outline_settings_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/custom_edit_text_cut.xml" value="0.134" />
         <entry key="app/src/main/res/drawable/dharmachakra.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_wheel.xml" value="0.243" />
+        <entry key="app/src/main/res/drawable/mega_edit_text_rounded.xml" value="0.134" />
         <entry key="app/src/main/res/drawable/navigation_state.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_lottery_chart.xml" value="0.264945652173913" />
         <entry key="app/src/main/res/layout/fragment_lottery_draws.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_lottery_graph.xml" value="0.20018115942028986" />
-        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="app/src/main/res/layout/labeled_bar_chart.xml" value="0.264945652173913" />
         <entry key="app/src/main/res/layout/most_recent_lottery_draw.xml" value="0.1" />
         <entry key="app/src/main/res/layout/normal_lottery_draw.xml" value="0.1" />
