@@ -37,9 +37,14 @@ class AppPreferencesImpl(
 
     override fun getList(key: String): List<Int> {
         val listStr = sharedPreferences.getString(key, "")
-        return listStr
-            ?.split(" ")
-            ?.map { it.toInt() } ?: listOf()
-    }
 
+        // return empty list if default value
+        return if (listStr.isNullOrEmpty()) {
+            listOf()
+        } else {
+            listStr
+                .split(" ")
+                .map { it.toInt() }
+        }
+    }
 }
