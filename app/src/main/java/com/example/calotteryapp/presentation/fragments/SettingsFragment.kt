@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -44,6 +45,7 @@ class SettingsFragment : Fragment() {
         clearEditTexts()
         setupTextWatcher()
         setupObserver()
+        setupEditorActionListener()
     }
 
     private fun clearEditTexts() {
@@ -64,7 +66,6 @@ class SettingsFragment : Fragment() {
                 if (s?.length != 2) return
 
                 if (view?.findFocus()?.id == R.id.edittext6) {
-                    hideKeyboard()
                     view?.findFocus()?.focusSearch(View.FOCUS_DOWN)
                 } else {
                     view?.findFocus()?.focusSearch(View.FOCUS_RIGHT)?.requestFocus()
@@ -102,6 +103,17 @@ class SettingsFragment : Fragment() {
             ).show()
             hideKeyboard()
         })
+    }
+
+    private fun setupEditorActionListener() {
+        binding.edittext6.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE && binding.buttonSubmit.isEnabled) {
+                viewModel.verifyUserNumbers()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun hideKeyboard() {
