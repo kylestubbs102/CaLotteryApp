@@ -50,6 +50,8 @@ class LotteryDrawViewHolder(
         winningNumbers: List<Int>,
         appPreferences: AppPreferences
     ): CharSequence {
+        if (winningNumbers.isNullOrEmpty()) return ""
+
         val regularUserNumbers = appPreferences.getList(REGULAR_USER_NUMBERS_PREF_KEY)
         val megaUserNumber = appPreferences.getInt(MEGA_USER_NUMBER_PREF_KEY)
 
@@ -78,13 +80,6 @@ class LotteryDrawViewHolder(
 
         return spanBuilder
     }
-
-//    private fun getColorString(num: Int): String {
-//        val x = SpannableStringBuilder()
-//            .color(Color.RED) { append(num.toString()) }
-//            .bold { append("asdf") }
-//        return x
-//    }
 
     private fun bindPrize(prizeAmount: Int): String {
         val prizeAmountString = String.format(CURRENCY_FORMAT, prizeAmount)
