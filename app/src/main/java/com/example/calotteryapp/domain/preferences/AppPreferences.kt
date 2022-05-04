@@ -5,6 +5,8 @@ interface AppPreferences {
 
     fun insertInt(key: String, value: Int)
 
+    fun insertLong(key: String, value: Long)
+
     fun insertString(key: String, value: String)
 
     fun insertList(key: String, value: List<Int>)
@@ -12,6 +14,8 @@ interface AppPreferences {
     fun getBoolean(key: String): Boolean
 
     fun getInt(key: String): Int
+
+    fun getLong(key: String): Long
 
     fun getString(key: String): String?
 

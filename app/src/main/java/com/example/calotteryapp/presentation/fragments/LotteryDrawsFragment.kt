@@ -19,9 +19,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.calotteryapp.R
+import com.example.calotteryapp.databinding.FragmentLotteryDrawsBinding
 import com.example.calotteryapp.domain.model.LotteryDraw
 import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.presentation.adapters.LotteryDrawAdapter
@@ -55,18 +54,19 @@ class LotteryDrawsFragment : Fragment() {
     lateinit var connectivityManager: ConnectivityManager
 
     private var adapter: LotteryDrawAdapter? = null
-    private var recyclerView: RecyclerView? = null
-    private var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     private var lotteryDrawList = mutableListOf<Any>()
 
     private val viewModel: LotteryViewModel by activityViewModels()
 
+    private var _binding: FragmentLotteryDrawsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_lottery_draws, container, false)
+    ): View {
+        _binding = FragmentLotteryDrawsBinding.inflate(inflater, container, false)
 
         adapter = LotteryDrawAdapter(
             lotteryDraws = lotteryDrawList,
@@ -76,54 +76,57 @@ class LotteryDrawsFragment : Fragment() {
 
         setupAlarmManager()
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshContainer)
-
-        recyclerView = view.findViewById(R.id.lotteryDrawsRecyclerView)
-        recyclerView?.setHasFixedSize(true)
-        recyclerView?.layoutManager = LinearLayoutManager(context)
-        recyclerView?.adapter = adapter
-        recyclerView?.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
-
-        return view
+        binding.recyclerViewLotteryDraws.setHasFixedSize(true)
+        binding.recyclerViewLotteryDraws.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewLotteryDraws.adapter = adapter
+        binding.recyclerViewLotteryDraws.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayout.VERTICAL
+            )
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        swipeRefreshLayout?.setOnRefreshListener {
+        binding.swipeRefreshLayoutLotteryDraws.setOnRefreshListener {
             if (isNetworkConnected()) {
                 viewModel.loadLotteryDraws()
             } else {
                 createNoConnectionAlertDialog()
-                swipeRefreshLayout?.isRefreshing = false
+                binding.swipeRefreshLayoutLotteryDraws.isRefreshing = false
             }
         }
 
         setupObservers()
 
-        viewModel.loadLotteryDraws()
+        if (viewModel.lotteryDraws.value.isNullOrEmpty()) {
+            viewModel.loadLotteryDraws()
+        }
     }
 
     private fun setupObservers() {
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             when (it) {
                 true -> {
-                    swipeRefreshLayout?.isRefreshing = true
-                    recyclerView?.visibility = INVISIBLE
+                    binding.swipeRefreshLayoutLotteryDraws.isRefreshing = true
+                    binding.recyclerViewLotteryDraws.visibility = INVISIBLE
                 }
                 false -> {
-                    swipeRefreshLayout?.isRefreshing = false
-                    recyclerView?.visibility = VISIBLE
+                    binding.swipeRefreshLayoutLotteryDraws.isRefreshing = false
+                    binding.recyclerViewLotteryDraws.visibility = VISIBLE
                 }
             }
         })
 
         viewModel.lotteryDraws.observe(viewLifecycleOwner, Observer {
-            setupViewHolders(it)
+            updateAndNotifyAdapter(it)
         })
     }
 
-    private fun setupViewHolders(observedLotteryDraws: List<LotteryDraw>) {
+    private fun updateAndNotifyAdapter(observedLotteryDraws: List<LotteryDraw>) {
         lotteryDrawList.clear()
         lotteryDrawList.add(
             resources.getString(
@@ -244,11 +247,10 @@ class LotteryDrawsFragment : Fragment() {
         return currTime
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        recyclerView = null
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
         adapter = null
-        swipeRefreshLayout = null
     }
 
 }
