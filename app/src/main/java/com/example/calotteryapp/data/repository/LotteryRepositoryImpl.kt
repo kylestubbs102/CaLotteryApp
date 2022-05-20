@@ -8,6 +8,7 @@ import com.example.calotteryapp.data.remote.LotteryApi
 import com.example.calotteryapp.di.IoDispatcher
 import com.example.calotteryapp.domain.model.LotteryDraw
 import com.example.calotteryapp.domain.repository.LotteryRepository
+import com.example.calotteryapp.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -23,14 +24,19 @@ class LotteryRepositoryImpl @Inject constructor(
     private val simpleDateFormat: SimpleDateFormat,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : LotteryRepository {
-    override suspend fun updateLotteryResults() {
-        try {
+    override suspend fun updateLotteryResults(): Resource<*> {
+        return try {
             val currentDateString = simpleDateFormat.format(Date())
             val currentDate = simpleDateFormat.parse(currentDateString)
 
-            val mostRecentDraw = lotteryDao.getLotteryDrawByDate(currentDate)
+            val mostRecentDraw = withContext(ioDispatcher) {
+                lotteryDao.getLotteryDrawByDate(currentDate)
+            }
 
-            if (mostRecentDraw != null) return
+            if (mostRecentDraw != null) return Resource.Error(
+                "Data for today already fetched",
+                null
+            )
 
             val apiResponse: Response<String> = withContext(ioDispatcher) {
                 lotteryApi.getWebsiteHTML()
@@ -77,12 +83,17 @@ class LotteryRepositoryImpl @Inject constructor(
                 prizeAmount = prizeAmountInt
             )
 
-            lotteryDao.insertLotteryDraw(
-                lotteryDrawScraped.toLotteryDrawEntity()
-            )
+            withContext(ioDispatcher) {
+                lotteryDao.insertLotteryDraw(
+                    lotteryDrawScraped.toLotteryDrawEntity()
+                )
+            }
+
+            Resource.Success(listOfWinningNumbers)
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
             e.printStackTrace()
+            Resource.Error("Data not fetched successfully", null)
         }
     }
 
