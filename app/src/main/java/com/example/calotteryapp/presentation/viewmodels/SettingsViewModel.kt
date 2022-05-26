@@ -6,9 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.calotteryapp.domain.preferences.AppPreferences
-import com.example.calotteryapp.util.DATE_PICKER_PREF_KEY
-import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY
-import com.example.calotteryapp.util.REGULAR_USER_NUMBERS_PREF_KEY
+import com.example.calotteryapp.util.Constants.DATE_PICKER_PREF_KEY
+import com.example.calotteryapp.util.Constants.MEGA_USER_NUMBER_PREF_KEY
+import com.example.calotteryapp.util.Constants.REGULAR_USER_NUMBERS_PREF_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val appPreferences: AppPreferences,
-    private val simpleDateFormat: SimpleDateFormat
 ) : ViewModel() {
     val userNumbers = MutableLiveData(List(6) { 1 })
 

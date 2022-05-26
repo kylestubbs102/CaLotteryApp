@@ -2,10 +2,9 @@ package com.example.calotteryapp.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.calotteryapp.data.local.LotteryConverters
 import com.example.calotteryapp.data.local.LotteryDao
 import com.example.calotteryapp.data.local.LotteryDatabase
-import com.example.calotteryapp.util.DATABASE_NAME
+import com.example.calotteryapp.util.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

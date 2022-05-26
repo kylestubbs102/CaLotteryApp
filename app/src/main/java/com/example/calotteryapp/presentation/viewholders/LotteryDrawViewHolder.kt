@@ -10,10 +10,10 @@ import com.example.calotteryapp.databinding.RecentLotteryDrawBinding
 import com.example.calotteryapp.databinding.StandardLotteryDrawBinding
 import com.example.calotteryapp.domain.model.LotteryDraw
 import com.example.calotteryapp.domain.preferences.AppPreferences
-import com.example.calotteryapp.util.CURRENCY_FORMAT
-import com.example.calotteryapp.util.DATE_PICKER_PREF_KEY
-import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY
-import com.example.calotteryapp.util.REGULAR_USER_NUMBERS_PREF_KEY
+import com.example.calotteryapp.util.Constants.CURRENCY_FORMAT
+import com.example.calotteryapp.util.Constants.DATE_PICKER_PREF_KEY
+import com.example.calotteryapp.util.Constants.MEGA_USER_NUMBER_PREF_KEY
+import com.example.calotteryapp.util.Constants.REGULAR_USER_NUMBERS_PREF_KEY
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.calotteryapp.data.preferences.AppPreferencesImpl
 import com.example.calotteryapp.domain.preferences.AppPreferences
-import com.example.calotteryapp.util.SHARED_PREF_NAME
+import com.example.calotteryapp.util.Constants.SHARED_PREF_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
