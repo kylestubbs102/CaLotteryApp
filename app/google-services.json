@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "365517969907",
+    "project_id": "calotteryapp",
+    "storage_bucket": "calotteryapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365517969907:android:84cfd118194a3d17401a86",
+        "android_client_info": {
+          "package_name": "com.example.calotteryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365517969907-fm10td33rr8m16lf9fo8evc77ov53srl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBALFRHbF7j5xyuDcWisXZZOy-t8CXXElY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365517969907-fm10td33rr8m16lf9fo8evc77ov53srl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
