@@ -10,13 +10,9 @@
     <string name="times_drawn">Times drawn</string>
     <string name="numbers">Numbers</string>
     <string name="mega_lottery_numbers">Mega Lottery Numbers</string>
-    <string name="lottery_number_instructions">Enter your lottery numbers (first 5 are distinct):</string>
-    <string name="date_picker_instructions">Enter your lottery buy date (must be today or later):</string>
-    <string name="toast_save_success">Settings saved successfully</string>
-    <string name="toast_save_failure">Unable to save settings, please enter distinct numbers and a valid date</string>
-    <string name="lottery_buy_date">Next lotto buy date:&#160;</string>
-    <string name="lottery_buy_date_not_set">"No lotto buy date set."</string>
-    <string name="toggle_grid_lines">Toggle grid lines</string>
+    <string name="edittext_instructions">Enter unique numbers 1–47 for the first 5 numbers and a number 1–27 for the last number.</string>
+    <string name="toast_save_success">Numbers saved successfully</string>
+    <string name="toast_save_failure">Unable to save numbers, please enter numbers within the given range</string>
     <plurals name="amount_of_prev_lottery_draws">
         <item quantity="one">%d previous lottery draw</item>
         <item quantity="other">%d previous lottery draws</item>

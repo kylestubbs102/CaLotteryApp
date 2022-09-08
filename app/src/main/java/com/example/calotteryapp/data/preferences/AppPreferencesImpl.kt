@@ -14,10 +14,6 @@ class AppPreferencesImpl(
         sharedPreferences.edit().putInt(key, value).apply()
     }
 
-    override fun insertLong(key: String, value: Long) {
-        sharedPreferences.edit().putLong(key, value).apply()
-    }
-
     override fun insertString(key: String, value: String) {
         sharedPreferences.edit().putString(key, value).apply()
     }
@@ -33,10 +29,6 @@ class AppPreferencesImpl(
 
     override fun getInt(key: String): Int {
         return sharedPreferences.getInt(key, 0)
-    }
-
-    override fun getLong(key: String): Long {
-        return sharedPreferences.getLong(key, 0)
     }
 
     override fun getString(key: String): String? {
