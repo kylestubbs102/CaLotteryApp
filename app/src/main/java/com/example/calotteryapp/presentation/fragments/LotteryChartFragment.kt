@@ -1,25 +1,27 @@
 package com.example.calotteryapp.presentation.fragments
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.calotteryapp.R
 import com.example.calotteryapp.databinding.FragmentLotteryChartBinding
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.presentation.viewmodels.LotteryViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LotteryChartFragment : Fragment() {
@@ -27,15 +29,11 @@ class LotteryChartFragment : Fragment() {
     companion object {
         fun newInstance() = LotteryChartFragment()
 
-        private const val MIN_X_AXIS = 0f
-        private const val MAX_X_AXIS_MEGA = 28f
-        private const val MAX_X_AXIS_REGULAR = 48f
-
-        private const val SHOULD_DRAW_GRID_LINES_PREF = "should_draw_grid_lines"
+        private const val MIN_X_AXIS = 1f
+        private const val MAX_X_AXIS_MEGA = 27f
+        private const val MAX_X_AXIS_REGULAR = 47f
     }
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
 
     private val viewModel: LotteryViewModel by activityViewModels()
 
@@ -46,29 +44,17 @@ class LotteryChartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
-
         _binding = FragmentLotteryChartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.lotteryDraws.observe(viewLifecycleOwner) { lotteryDraws ->
+        viewModel.lotteryDraws.observe(viewLifecycleOwner, Observer { lotteryDraws ->
             setupBarCharts(lotteryDraws)
-        }
+        })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.chart_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.toggle_grid) {
-            onGridMenuItemPressed()
-        }
-        return true
-    }
-
+    // TODO : figure out how to add titles to charts
     private fun setupBarCharts(lotteryDraws: List<LotteryDraw>) {
         setupRegularLotteryChart(lotteryDraws)
 
@@ -134,23 +120,13 @@ class LotteryChartFragment : Fragment() {
         barChart.data = data
 
         // adjust range of x and y axis
-        barChart.xAxis.axisMinimum = MIN_X_AXIS
-        barChart.xAxis.axisMaximum = if (isMega) MAX_X_AXIS_MEGA else MAX_X_AXIS_REGULAR
+        barChart.xAxis.axisMinimum = 0f
+        barChart.xAxis.axisMaximum = if (isMega) 27.5f else 47.5f
+        barChart.xAxis.labelCount = 10
         barChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         barChart.axisLeft.axisMinimum = 0f
         barChart.axisLeft.axisMaximum = data.yMax
-        if (getOrientation() == Configuration.ORIENTATION_LANDSCAPE) {
-            val maxX = if (isMega) MAX_X_AXIS_MEGA else MAX_X_AXIS_REGULAR
-            barChart.setVisibleXRange(0F, maxX)
-            barChart.xAxis.labelCount = 24
-        } else {
-            barChart.setVisibleXRange(0F, 20F)
-            barChart.xAxis.labelCount = 10
-        }
-
-        // grid lines
-        val shouldDrawGridLines = appPreferences.getBoolean(SHOULD_DRAW_GRID_LINES_PREF)
-        setGridLines(barChart, shouldDrawGridLines)
+        barChart.setVisibleXRange(0F, 20F)
 
         // adjust text size
         barChart.xAxis.textSize = 14f
@@ -161,7 +137,6 @@ class LotteryChartFragment : Fragment() {
         barChart.legend.isEnabled = false
         barChart.description.isEnabled = false
 
-        // animate chart lines
         barChart.animateY(1000)
 
         barChart.invalidate()
@@ -174,28 +149,6 @@ class LotteryChartFragment : Fragment() {
                 value.toFloat()
             )
         }
-
-    private fun onGridMenuItemPressed() {
-        val prevGridLinesPref = appPreferences.getBoolean(SHOULD_DRAW_GRID_LINES_PREF)
-        appPreferences.insertBoolean(SHOULD_DRAW_GRID_LINES_PREF, !prevGridLinesPref)
-
-        setGridLines(binding.barChartRegular.barChart, !prevGridLinesPref)
-        setGridLines(binding.barChartMega.barChart, !prevGridLinesPref)
-
-        binding.barChartRegular.barChart.invalidate()
-        binding.barChartMega.barChart.invalidate()
-    }
-
-    private fun setGridLines(
-        barChart: BarChart,
-        shouldDrawGridLines: Boolean
-    ) {
-        barChart.axisRight.setDrawGridLines(shouldDrawGridLines)
-        barChart.axisLeft.setDrawGridLines(shouldDrawGridLines)
-        barChart.xAxis.setDrawGridLines(shouldDrawGridLines)
-    }
-
-    private fun getOrientation() = resources.configuration.orientation
 
     override fun onDestroyView() {
         super.onDestroyView()

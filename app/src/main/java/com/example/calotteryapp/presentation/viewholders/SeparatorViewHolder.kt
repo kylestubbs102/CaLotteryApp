@@ -1,13 +1,17 @@
 package com.example.calotteryapp.presentation.viewholders
 
+import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.calotteryapp.databinding.SeparatorItemBinding
+import com.example.calotteryapp.R
 
 class SeparatorViewHolder(
-    private val binding: SeparatorItemBinding
-) : RecyclerView.ViewHolder(binding.root) {
+    view: View
+) : RecyclerView.ViewHolder(view) {
+    private var separatorTextView: TextView = view.findViewById(R.id.separatorTextView)
 
     fun bind(text: String) {
-        binding.textviewSeparator.text = text
+        separatorTextView.text = text
     }
+
 }

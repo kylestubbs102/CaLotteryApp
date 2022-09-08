@@ -3,9 +3,7 @@ package com.example.calotteryapp.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.calotteryapp.databinding.RecentLotteryDrawBinding
-import com.example.calotteryapp.databinding.SeparatorItemBinding
-import com.example.calotteryapp.databinding.StandardLotteryDrawBinding
+import com.example.calotteryapp.R
 import com.example.calotteryapp.domain.model.LotteryDraw
 import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.presentation.viewholders.LotteryDrawViewHolder
@@ -29,19 +27,19 @@ class LotteryDrawAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             SEPARATOR_ITEM -> {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = SeparatorItemBinding.inflate(layoutInflater, parent, false)
-                SeparatorViewHolder(binding)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.separator_item, parent, false)
+                SeparatorViewHolder(view)
             }
             RECENT_LOTTERY_DRAW -> {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = RecentLotteryDrawBinding.inflate(layoutInflater, parent, false)
-                LotteryDrawViewHolder(binding)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.recent_lottery_draw, parent, false)
+                LotteryDrawViewHolder(view)
             }
             STANDARD_LOTTERY_DRAW -> {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = StandardLotteryDrawBinding.inflate(layoutInflater, parent, false)
-                LotteryDrawViewHolder(binding)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.standard_lottery_draw, parent, false)
+                LotteryDrawViewHolder(view)
             }
             else -> throw IndexOutOfBoundsException("Invalid viewType for $TAG")
         }
@@ -50,7 +48,7 @@ class LotteryDrawAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = lotteryDraws[position]
         when (holder) {
-            is LotteryDrawViewHolder<*> -> {
+            is LotteryDrawViewHolder -> {
                 holder.bind(
                     data as LotteryDraw,
                     simpleDateFormat,
