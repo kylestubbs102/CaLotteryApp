@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -82,8 +84,13 @@ dependencies {
     // Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-    // LeakCanary - disabled so that app isn't installed on father's phone
+    // LeakCanary
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
 
 // Allow references to generated code
