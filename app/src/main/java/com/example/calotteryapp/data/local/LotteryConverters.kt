@@ -1,5 +1,6 @@
 package com.example.calotteryapp.data.local
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import java.util.*
 

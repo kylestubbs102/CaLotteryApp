@@ -1,6 +1,6 @@
 package com.example.calotteryapp.di
 
-import com.example.calotteryapp.util.Constants.DATABASE_DATE_FORMAT
+import com.example.calotteryapp.util.DATABASE_DATE_FORMAT
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

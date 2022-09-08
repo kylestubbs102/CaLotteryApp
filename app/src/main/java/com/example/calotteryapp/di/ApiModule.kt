@@ -1,7 +1,7 @@
 package com.example.calotteryapp.di
 
 import com.example.calotteryapp.data.remote.LotteryApi
-import com.example.calotteryapp.util.Constants.BASE_URL
+import com.example.calotteryapp.util.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

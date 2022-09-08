@@ -18,8 +18,8 @@ import com.example.calotteryapp.di.MainDispatcher
 import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.domain.repository.LotteryRepository
 import com.example.calotteryapp.presentation.MainActivity
-import com.example.calotteryapp.util.Constants.MEGA_USER_NUMBER_PREF_KEY
-import com.example.calotteryapp.util.Constants.REGULAR_USER_NUMBERS_PREF_KEY
+import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY
+import com.example.calotteryapp.util.REGULAR_USER_NUMBERS_PREF_KEY
 import com.example.calotteryapp.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
