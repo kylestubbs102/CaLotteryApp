@@ -7,7 +7,7 @@
     tools:context=".presentation.fragments.LotteryDrawsFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshContainer"
+        android:id="@+id/swipe_refresh_layout_lottery_draws"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lotteryDrawsRecyclerView"
+            android:id="@+id/recycler_view_lottery_draws"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

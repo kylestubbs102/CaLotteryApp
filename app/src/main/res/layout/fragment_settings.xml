@@ -9,139 +9,137 @@
             name="viewModel"
             type="com.example.calotteryapp.presentation.viewmodels.SettingsViewModel" />
 
-        <import type="android.text.TextUtils" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         tools:context=".presentation.fragments.SettingsFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/right_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".95" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="30dp">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/left_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".05" />
+            <TextView
+                android:id="@+id/textview_lottery_number_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lottery_number_instructions"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@id/linear_layout_number_picker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/edittext_instructions"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/edittext1"
-            app:layout_constraintEnd_toStartOf="@id/right_guideline"
-            app:layout_constraintStart_toEndOf="@id/left_guideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_number_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/textview_date_picker_instructions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_lottery_number_instructions">
 
-        <EditText
-            android:id="@+id/edittext1"
-            style="@style/EditTextTheme"
-            android:layout_width="@dimen/edittext_side"
-            android:layout_height="@dimen/edittext_side"
-            android:background="@drawable/regular_edit_text_rounded"
-            android:imeOptions="actionNext"
-            android:text="@={viewModel.userNumbers[0]}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/edittext2"
-            app:layout_constraintStart_toEndOf="@id/left_guideline"
-            app:layout_constraintTop_toTopOf="parent" />
+                <NumberPicker
+                    android:id="@+id/number_picker_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxValue="@{47}"
+                    android:minValue="@{1}"
+                    android:value="@={viewModel.userNumbers[0]}" />
 
-        <EditText
-            android:id="@+id/edittext2"
-            style="@style/EditTextTheme"
-            android:layout_width="@dimen/edittext_side"
-            android:layout_height="@dimen/edittext_side"
-            android:background="@drawable/regular_edit_text_rounded"
-            android:imeOptions="actionNext"
-            android:text="@={viewModel.userNumbers[1]}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/edittext3"
-            app:layout_constraintStart_toEndOf="@id/edittext1"
-            app:layout_constraintTop_toTopOf="parent" />
+                <NumberPicker
+                    android:id="@+id/number_picker_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxValue="@{47}"
+                    android:minValue="@{1}"
+                    android:value="@={viewModel.userNumbers[1]}" />
 
-        <EditText
-            android:id="@+id/edittext3"
-            style="@style/EditTextTheme"
-            android:layout_width="@dimen/edittext_side"
-            android:layout_height="@dimen/edittext_side"
-            android:background="@drawable/regular_edit_text_rounded"
-            android:imeOptions="actionNext"
-            android:text="@={viewModel.userNumbers[2]}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/edittext4"
-            app:layout_constraintStart_toEndOf="@id/edittext2"
-            app:layout_constraintTop_toTopOf="parent" />
+                <NumberPicker
+                    android:id="@+id/number_picker_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxValue="@{47}"
+                    android:minValue="@{1}"
+                    android:value="@={viewModel.userNumbers[2]}" />
 
-        <EditText
-            android:id="@+id/edittext4"
-            style="@style/EditTextTheme"
-            android:layout_width="@dimen/edittext_side"
-            android:layout_height="@dimen/edittext_side"
-            android:background="@drawable/regular_edit_text_rounded"
-            android:imeOptions="actionNext"
-            android:text="@={viewModel.userNumbers[3]}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/edittext5"
-            app:layout_constraintStart_toEndOf="@id/edittext3"
-            app:layout_constraintTop_toTopOf="parent" />
+                <NumberPicker
+                    android:id="@+id/number_picker_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxValue="@{47}"
+                    android:minValue="@{1}"
+                    android:value="@={viewModel.userNumbers[3]}" />
 
-        <EditText
-            android:id="@+id/edittext5"
-            style="@style/EditTextTheme"
-            android:layout_width="@dimen/edittext_side"
-            android:layout_height="@dimen/edittext_side"
-            android:background="@drawable/regular_edit_text_rounded"
-            android:imeOptions="actionNext"
-            android:text="@={viewModel.userNumbers[4]}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/edittext6"
-            app:layout_constraintStart_toEndOf="@id/edittext4"
-            app:layout_constraintTop_toTopOf="parent" />
+                <NumberPicker
+                    android:id="@+id/number_picker_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxValue="@{47}"
+                    android:minValue="@{1}"
+                    android:value="@={viewModel.userNumbers[4]}" />
 
-        <EditText
-            android:id="@+id/edittext6"
-            style="@style/EditTextTheme"
-            android:layout_width="@dimen/edittext_side"
-            android:layout_height="@dimen/edittext_side"
-            android:background="@drawable/mega_edit_text_rounded"
-            android:imeOptions="actionDone"
-            android:text="@={viewModel.userNumbers[5]}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/right_guideline"
-            app:layout_constraintStart_toEndOf="@id/edittext5"
-            app:layout_constraintTop_toTopOf="parent" />
+                <NumberPicker
+                    android:id="@+id/number_picker_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxValue="@{27}"
+                    android:minValue="@{1}"
+                    android:value="@={viewModel.userNumbers[5]}" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
-            android:id="@+id/button_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled='false'
-            android:focusable="true"
-            android:onClick="@{() -> viewModel.verifyUserNumbers()}"
-            android:text="Submit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/right_guideline"
-            app:layout_constraintStart_toEndOf="@id/button_clear"
-            app:layout_constraintTop_toBottomOf="@id/edittext1" />
+            <TextView
+                android:id="@+id/textview_date_picker_instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_picker_instructions"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@id/date_picker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear_layout_number_picker" />
 
-        <Button
-            android:id="@+id/button_clear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.clearUserNumbers()}"
-            android:text="Clear"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_submit"
-            app:layout_constraintStart_toEndOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/edittext1" />
+            <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:day="@={viewModel.day}"
+                android:month="@={viewModel.month}"
+                android:year="@={viewModel.year}"
+                app:layout_constraintBottom_toTopOf="@id/button_submit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_date_picker_instructions" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/button_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> viewModel.verifyUserNumbers()}"
+                android:text="Update"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_picker" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

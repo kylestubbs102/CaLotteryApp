@@ -5,15 +5,15 @@
     android:layout_height="@dimen/separator_height">
 
     <TextView
-        android:id="@+id/separatorTextView"
+        android:id="@+id/textview_separator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAlignment="center"
+        android:background="@android:color/darker_gray"
         android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
-        android:background="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

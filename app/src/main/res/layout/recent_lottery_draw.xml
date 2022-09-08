@@ -7,28 +7,38 @@
     android:paddingRight="@dimen/draw_padding">
 
     <TextView
-        android:id="@+id/dateTextView"
+        android:id="@+id/textview_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/prizeTextView"
+        app:layout_constraintBottom_toTopOf="@id/textview_prize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/numbersTextView"
+        android:id="@+id/textview_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/prizeTextView"
+        app:layout_constraintBottom_toTopOf="@id/textview_prize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/prizeTextView"
+        android:id="@+id/textview_prize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/textview_next_lotto_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_numbers" />
+
+    <TextView
+        android:id="@+id/textview_next_lotto_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numbersTextView" />
+        app:layout_constraintTop_toBottomOf="@id/textview_prize" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
