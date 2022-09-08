@@ -26,6 +26,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.io.InvalidClassException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,10 +55,17 @@ class AlarmReceiver : BroadcastReceiver() {
         CoroutineScope(mainDispatcher).launch {
             val result = lotteryRepository.updateLotteryResults()
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                createNotificationChannel()
+            when (result) {
+                is Resource.Error -> return@launch
+                is Resource.Success -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        createNotificationChannel()
+                    }
+                    notifyNotification(result)
+                }
+                else -> throw InvalidClassException("Incorrect class returned")
             }
-            notifyNotification(result)
+
         }
     }
 
@@ -75,7 +83,7 @@ class AlarmReceiver : BroadcastReceiver() {
         notificationManager.createNotificationChannel(mChannel)
     }
 
-    private fun notifyNotification(result: Resource<*>) {
+    private fun notifyNotification(result: Resource.Success<*>) {
         val resultIntent = Intent(context, MainActivity::class.java)
         val resultPendingIntent = PendingIntent.getActivity(
             context,
@@ -84,10 +92,7 @@ class AlarmReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val numbersCorrect = when (result) {
-            is Resource.Success -> calculateAmountOfCorrectNumbers(result)
-            else -> -1
-        }
+        val numbersCorrect = calculateAmountOfCorrectNumbers(result)
 
         val description = if (numbersCorrect == -1) {
             LOTTERY_DESCRIPTION
