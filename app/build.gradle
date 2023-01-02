@@ -5,6 +5,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -20,11 +21,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    viewBinding {
-        enabled = true
-    }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 
     buildTypes {
@@ -91,6 +90,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
 }
 
 // Allow references to generated code
