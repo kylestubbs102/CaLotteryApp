@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.calotteryapp.R
 import com.example.calotteryapp.databinding.FragmentLotteryChartBinding
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.domain.preferences.AppPreferences
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 import com.example.calotteryapp.presentation.viewmodels.LotteryViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis

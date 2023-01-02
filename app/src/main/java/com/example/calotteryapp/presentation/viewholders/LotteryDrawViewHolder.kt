@@ -9,7 +9,7 @@ import com.example.calotteryapp.R
 import com.example.calotteryapp.databinding.RecentLotteryDrawBinding
 import com.example.calotteryapp.databinding.StandardLotteryDrawBinding
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.domain.preferences.AppPreferences
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 import com.example.calotteryapp.util.CURRENCY_FORMAT
 import com.example.calotteryapp.util.DATE_PICKER_PREF_KEY
 import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY

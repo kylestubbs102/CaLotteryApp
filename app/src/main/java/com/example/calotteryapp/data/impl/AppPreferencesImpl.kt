@@ -1,7 +1,7 @@
-package com.example.calotteryapp.data.preferences
+package com.example.calotteryapp.data.impl
 
 import android.content.SharedPreferences
-import com.example.calotteryapp.domain.preferences.AppPreferences
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 
 class AppPreferencesImpl(
     private val sharedPreferences: SharedPreferences

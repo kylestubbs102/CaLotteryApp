@@ -1,10 +1,10 @@
 package com.example.calotteryapp.presentation.fragments
 
 import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities.*
+import android.net.NetworkCapabilities.TRANSPORT_CELLULAR
+import android.net.NetworkCapabilities.TRANSPORT_ETHERNET
+import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,14 +21,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.calotteryapp.R
 import com.example.calotteryapp.databinding.FragmentLotteryDrawsBinding
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.domain.preferences.AppPreferences
 import com.example.calotteryapp.presentation.adapters.LotteryDrawAdapter
 import com.example.calotteryapp.presentation.viewmodels.LotteryViewModel
-import com.example.calotteryapp.services.AlarmReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,9 +34,6 @@ class LotteryDrawsFragment : Fragment() {
 
     companion object {
         fun newInstance() = LotteryDrawsFragment()
-
-        const val REQUEST_CODE_0 = 0
-        const val REQUEST_CODE_1 = 1
     }
 
     @Inject
@@ -73,8 +68,6 @@ class LotteryDrawsFragment : Fragment() {
             simpleDateFormat = simpleDateFormat,
             appPreferences = appPreferences
         )
-
-        setupAlarmManager()
 
         binding.recyclerViewLotteryDraws.setHasFixedSize(true)
         binding.recyclerViewLotteryDraws.layoutManager = LinearLayoutManager(context)
@@ -192,59 +185,6 @@ class LotteryDrawsFragment : Fragment() {
             .setMessage(getString(R.string.no_connection_alert_dialog_message))
             .setCancelable(true)
             .show()
-    }
-
-    private fun setupAlarmManager() {
-        var currTime = getCurrTime(Calendar.WEDNESDAY)
-
-        val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIndent1 = getPendingIntent(intent, REQUEST_CODE_0)
-        // need 2 pending intents because the 2nd one will replace the first one
-
-        setRepeatingAlarm(currTime, pendingIndent1)
-
-        currTime = getCurrTime(Calendar.SATURDAY)
-
-        val pendingIndent2 = getPendingIntent(intent, REQUEST_CODE_1)
-
-        setRepeatingAlarm(currTime, pendingIndent2)
-    }
-
-    private fun setRepeatingAlarm(
-        currTime: Calendar,
-        pendingIndent: PendingIntent
-    ) {
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            currTime.timeInMillis,
-            7 * 24 * 60 * 60 * 1000,
-            pendingIndent
-        )
-    }
-
-    private fun getPendingIntent(
-        intent: Intent,
-        requestCode: Int
-    ) = PendingIntent.getBroadcast(
-        context,
-        requestCode,
-        intent,
-        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-    )
-
-    private fun getCurrTime(dayOfWeek: Int): Calendar {
-        val currTime = Calendar.getInstance(Locale.getDefault())
-        currTime.set(Calendar.DAY_OF_WEEK, dayOfWeek)
-        currTime.set(Calendar.HOUR, 8)
-        currTime.set(Calendar.AM_PM, Calendar.PM)
-        currTime.set(Calendar.MINUTE, 30)
-        currTime.set(Calendar.SECOND, 10)
-
-        // adds time until it is past the current time, ex: alarm is set for yesterday
-        while (currTime.timeInMillis < System.currentTimeMillis()) {
-            currTime.add(Calendar.DATE, 7)
-        }
-        return currTime
     }
 
     override fun onDestroyView() {

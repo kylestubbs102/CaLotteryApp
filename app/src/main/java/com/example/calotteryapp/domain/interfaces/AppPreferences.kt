@@ -1,4 +1,4 @@
-package com.example.calotteryapp.domain.preferences
+package com.example.calotteryapp.domain.interfaces
 
 interface AppPreferences {
     fun insertBoolean(key: String, value: Boolean)

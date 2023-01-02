@@ -3,6 +3,8 @@ package com.example.calotteryapp.di
 import android.app.AlarmManager
 import android.content.Context
 import android.net.ConnectivityManager
+import com.example.calotteryapp.data.impl.NotificationPublisherImpl
+import com.example.calotteryapp.domain.interfaces.NotificationPublisher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +24,9 @@ object ServiceModule {
     @Singleton
     fun provideConnectionManager(@ApplicationContext context: Context) =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    @Provides
+    @Singleton
+    fun provideNotificationPublisher(@ApplicationContext context: Context): NotificationPublisher =
+        NotificationPublisherImpl(context)
 }

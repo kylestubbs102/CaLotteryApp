@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.example.calotteryapp.R
 import com.example.calotteryapp.di.IoDispatcher
 import com.example.calotteryapp.di.MainDispatcher
-import com.example.calotteryapp.domain.preferences.AppPreferences
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 import com.example.calotteryapp.domain.repository.LotteryRepository
 import com.example.calotteryapp.presentation.MainActivity
 import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY
@@ -23,13 +23,14 @@ import com.example.calotteryapp.util.REGULAR_USER_NUMBERS_PREF_KEY
 import com.example.calotteryapp.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.InvalidClassException
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.io.InvalidClassException
-import javax.inject.Inject
 
 @AndroidEntryPoint
+@Deprecated("Changed to use FCM instead")
 class AlarmReceiver : BroadcastReceiver() {
 
     @Inject

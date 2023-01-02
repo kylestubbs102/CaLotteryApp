@@ -5,7 +5,7 @@ import android.text.format.DateFormat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.calotteryapp.domain.preferences.AppPreferences
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 import com.example.calotteryapp.util.DATE_PICKER_PREF_KEY
 import com.example.calotteryapp.util.MEGA_USER_NUMBER_PREF_KEY
 import com.example.calotteryapp.util.REGULAR_USER_NUMBERS_PREF_KEY

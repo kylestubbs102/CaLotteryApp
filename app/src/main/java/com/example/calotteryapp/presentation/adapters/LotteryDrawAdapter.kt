@@ -7,7 +7,7 @@ import com.example.calotteryapp.databinding.RecentLotteryDrawBinding
 import com.example.calotteryapp.databinding.SeparatorItemBinding
 import com.example.calotteryapp.databinding.StandardLotteryDrawBinding
 import com.example.calotteryapp.domain.model.LotteryDraw
-import com.example.calotteryapp.domain.preferences.AppPreferences
+import com.example.calotteryapp.domain.interfaces.AppPreferences
 import com.example.calotteryapp.presentation.viewholders.LotteryDrawViewHolder
 import com.example.calotteryapp.presentation.viewholders.SeparatorViewHolder
 import java.text.SimpleDateFormat
